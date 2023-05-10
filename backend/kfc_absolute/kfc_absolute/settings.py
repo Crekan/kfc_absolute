@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'rest_framework',
 
     'users.apps.UsersConfig',
+    'temporary.apps.TemporaryConfig',
 ]
 
 MIDDLEWARE = [
