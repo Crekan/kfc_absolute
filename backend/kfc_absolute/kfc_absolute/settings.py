@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -37,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'celery',
 
     'users.apps.UsersConfig',
     'temporary.apps.TemporaryConfig',
@@ -136,6 +138,17 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ]
+}
+
+# Celery
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_BEAT_SCHEDULE = {
+    'delete_old_records': {
+        'task': 'temporary.tasks.delete_old_records',
+        'schedule': timedelta(minutes=1),
+    },
 }
 
 # User
