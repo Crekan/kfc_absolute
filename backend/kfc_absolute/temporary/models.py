@@ -34,7 +34,7 @@ class Temporary(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     night = models.BooleanField(default=False)
 
-    object = TemporaryManager()
+    objects = TemporaryManager()
 
     def __str__(self):
         return f'{self.day} - {self.shift_type}'

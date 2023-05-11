@@ -1,3 +1,34 @@
-from django.shortcuts import render
+from rest_framework import generics
 
-# Create your views here.
+from .models import Temporary
+from .serializers import TemporaryCreateSerializer, TemporarySerializer
+
+
+class TemporaryView(generics.ListAPIView):
+    serializer_class = TemporarySerializer
+
+    def get_queryset(self):
+        return Temporary.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class TemporaryDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = TemporaryCreateSerializer
+
+    def get_queryset(self):
+        return Temporary.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class TemporaryCreateView(generics.CreateAPIView):
+    serializer_class = TemporaryCreateSerializer
+
+    def get_queryset(self):
+        return Temporary.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)

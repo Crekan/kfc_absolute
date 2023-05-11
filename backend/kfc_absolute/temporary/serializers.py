@@ -18,7 +18,7 @@ class TemporaryCreateSerializer(serializers.ModelSerializer):
             UniqueTogetherValidator(
                 queryset=Temporary.objects.all(),
                 fields=['day'],
-                message='День уже существует',
+                message='День уже существует'
             )
         ]
 
@@ -30,12 +30,11 @@ class TemporaryCreateSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('Это поле должно заполнся при выборе "Другое".')
         if self.initial_data.get('shift_type') == 'Другое' and not value:
             raise serializers.ValidationError('Это поле должно заполнся при выборе "Другое".')
-
         return value
 
     def to_representation(self, instance):
         shift_choices = Temporary.SHIFT_CHOICES
 
-        if instance.shift_choices in [choice[0] for choice in shift_choices if choice[0] != 'Другое']:
+        if instance.shift_type in [choice[0] for choice in shift_choices if choice[0] != 'Другое']:
             self.fields['custom_time'].read_only = True
         return super().to_representation(instance)
