@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-olam353l^el%@@px6@%59d&1*#%)s$obcg%3o2hsf-7h=ibj8b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -39,9 +39,11 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'celery',
+    'django_celery_results',
 
     'users.apps.UsersConfig',
     'temporary.apps.TemporaryConfig',
+    'temporary.management.commands',
 ]
 
 MIDDLEWARE = [
@@ -82,10 +84,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.environ.get('DATABASE_NAME', 'kfc_db'),
-        'USER': os.environ.get('DATABASE_USER', 'postgres'),
+        'USER': os.environ.get('DATABASE_USER'),
         'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-        'HOST': os.environ.get('DATABASE_HOST', 'localhost'),
-        'PORT': os.environ.get('DATABASE_PORT', 5432),
+        'HOST': os.environ.get('DATABASE_HOST'),
+        'PORT': os.environ.get('DATABASE_PORT'),
     }
 }
 
@@ -121,7 +123,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+if DEBUG:
+    STATICFILES_DIRS = (
+        BASE_DIR / 'static',
+    )
+else:
+    STATIC_ROOT = BASE_DIR / 'static'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -143,11 +155,12 @@ REST_FRAMEWORK = {
 # Celery
 
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'django-db'
+
 CELERY_BEAT_SCHEDULE = {
-    'delete_old_records': {
-        'task': 'temporary.tasks.delete_old_records',
-        'schedule': timedelta(minutes=1),
+    'delete_expired_records': {
+        'task': 'temporary.tasks.delete_record',
+        'schedule': timedelta(days=7),
     },
 }
 

@@ -4,11 +4,6 @@ from django.utils import timezone
 from users.models import User
 
 
-class TemporaryManager(models.Manager):
-    def records_to_delete(self):
-        return self.filter(date_add__lte=timezone.now() - timezone.timedelta(days=7))
-
-
 class Temporary(models.Model):
     DAY_CHOICES = (
         ('Понедельник', 'Понедельник'),
@@ -34,10 +29,5 @@ class Temporary(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     night = models.BooleanField(default=False)
 
-    objects = TemporaryManager()
-
     def __str__(self):
         return f'{self.day} - {self.shift_type}'
-
-    def should_be_deleted(self):
-        return self.date_add <= timezone.now() - timezone.timedelta(days=7)

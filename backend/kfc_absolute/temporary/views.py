@@ -1,9 +1,12 @@
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-from rest_framework import generics
+from datetime import datetime, timedelta
+
+from django.shortcuts import redirect
+from rest_framework import generics, status
+from rest_framework.response import Response
 
 from .models import Temporary
 from .serializers import TemporaryCreateSerializer, TemporarySerializer
+from .tasks import delete_record
 
 
 class TemporaryView(generics.ListAPIView):
@@ -36,7 +39,10 @@ class TemporaryCreateView(generics.CreateAPIView):
         serializer.save(user=self.request.user)
 
     def create(self, request, *args, **kwargs):
-        response = super().create(request, *args, **kwargs)
-        instance = self.serializer_class.Meta.model.objects.get(id=response.data['id'])
-        url = reverse('temporary_create')
-        return HttpResponseRedirect(url)
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+
+        delete_record.apply_async(args=(serializer.instance.id,), eta=datetime.now() + timedelta(days=7))
+
+        return redirect('/api/v1/temporary/create/')

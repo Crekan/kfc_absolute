@@ -1,11 +1,11 @@
 from celery import shared_task
+from django.utils import timezone
 
 from .models import Temporary
 
 
 @shared_task
-def delete_old_records():
-    records_to_delete = Temporary.objects.records_to_delete()
-    for record in records_to_delete:
-        if record.should_be_deleted():
-            record.delete()
+def delete_record(record_id):
+    record = Temporary.objects.get(pk=record_id)
+    if record.date_add < timezone.now():
+        record.delete()
