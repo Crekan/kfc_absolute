@@ -32,6 +32,7 @@ INSTALLED_APPS = [
 
     'users.apps.UsersConfig',
     'temporary.apps.TemporaryConfig',
+    'feedback.apps.FeedbackConfig',
 ]
 
 MIDDLEWARE = [
