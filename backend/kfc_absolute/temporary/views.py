@@ -5,7 +5,7 @@ from rest_framework import generics, permissions
 
 from users.models import User
 from users.serializers import CustomUserAdminSerializer
-from .models import Temporary
+from .mixins import UserFilterMixin
 from .serializers import TemporaryCreateSerializer, TemporarySerializer
 from .tasks import delete_record
 
@@ -16,37 +16,19 @@ class AdminView(generics.ListAPIView):
     permission_classes = (permissions.IsAdminUser,)
 
 
-class TemporaryView(generics.ListAPIView):
+class TemporaryView(UserFilterMixin, generics.ListAPIView):
     serializer_class = TemporarySerializer
     permission_classes = (permissions.IsAuthenticated,)
 
-    def get_queryset(self):
-        return Temporary.objects.filter(user=self.request.user)
 
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
-
-
-class TemporaryDetailView(generics.RetrieveUpdateDestroyAPIView):
+class TemporaryDetailView(UserFilterMixin, generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TemporaryCreateSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
-    def get_queryset(self):
-        return Temporary.objects.filter(user=self.request.user)
 
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
-
-
-class TemporaryCreateView(generics.CreateAPIView):
+class TemporaryCreateView(UserFilterMixin, generics.CreateAPIView):
     serializer_class = TemporaryCreateSerializer
     permission_classes = (permissions.IsAuthenticated,)
-
-    def get_queryset(self):
-        return Temporary.objects.filter(user=self.request.user)
-
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
