@@ -32,7 +32,6 @@ INSTALLED_APPS = [
 
     'users.apps.UsersConfig',
     'temporary.apps.TemporaryConfig',
-    'temporary.management.commands',
 ]
 
 MIDDLEWARE = [

@@ -28,6 +28,7 @@ class Temporary(models.Model):
     date_add = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     night = models.BooleanField(default=False)
+    wishes = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return f'{self.day} - {self.shift_type}'

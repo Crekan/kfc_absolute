@@ -2,7 +2,6 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
 from .models import Temporary
-from users.serializers import CustomUserSerializer
 
 
 class TemporaryAdminSerializer(serializers.ModelSerializer):
@@ -10,19 +9,19 @@ class TemporaryAdminSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Temporary
-        fields = ['user', 'id', 'day', 'shift_type', 'custom_time', 'night']
+        fields = ['user', 'id', 'day', 'shift_type', 'custom_time', 'night', 'wishes']
 
 
 class TemporarySerializer(serializers.ModelSerializer):
     class Meta:
         model = Temporary
-        fields = ['id', 'day', 'shift_type', 'custom_time', 'night']
+        fields = ['id', 'day', 'shift_type', 'custom_time', 'night', 'wishes']
 
 
 class TemporaryCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Temporary
-        fields = ['id', 'day', 'shift_type', 'night', 'custom_time']
+        fields = ['id', 'day', 'shift_type', 'night', 'custom_time', 'wishes']
         validators = [
             UniqueTogetherValidator(
                 queryset=Temporary.objects.all(),
