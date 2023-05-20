@@ -1,6 +1,7 @@
 from django.urls import path
 
-from temporary.views import TemporaryCreateView, TemporaryDetailView, TemporaryView, AdminView
+from temporary.views import (AdminView, TemporaryCreateView,
+                             TemporaryDetailView, TemporaryView)
 
 urlpatterns = [
     path('temporary/', TemporaryView.as_view(), name='temporary'),
