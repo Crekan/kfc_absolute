@@ -1,16 +1,22 @@
 from datetime import datetime, timedelta
 
 from django.shortcuts import redirect
-from rest_framework import generics, status
-from rest_framework.response import Response
+from rest_framework import generics, permissions
 
 from .models import Temporary
-from .serializers import TemporaryCreateSerializer, TemporarySerializer
+from .serializers import TemporaryCreateSerializer, TemporarySerializer, TemporaryAdminSerializer
 from .tasks import delete_record
+
+
+class AdminView(generics.ListAPIView):
+    queryset = Temporary.objects.all()
+    serializer_class = TemporaryAdminSerializer
+    permission_classes = (permissions.IsAdminUser,)
 
 
 class TemporaryView(generics.ListAPIView):
     serializer_class = TemporarySerializer
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
         return Temporary.objects.filter(user=self.request.user)
@@ -21,6 +27,7 @@ class TemporaryView(generics.ListAPIView):
 
 class TemporaryDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TemporaryCreateSerializer
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
         return Temporary.objects.filter(user=self.request.user)
@@ -31,6 +38,7 @@ class TemporaryDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 class TemporaryCreateView(generics.CreateAPIView):
     serializer_class = TemporaryCreateSerializer
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
         return Temporary.objects.filter(user=self.request.user)

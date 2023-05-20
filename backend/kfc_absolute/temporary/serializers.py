@@ -2,6 +2,15 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
 from .models import Temporary
+from users.serializers import CustomUserSerializer
+
+
+class TemporaryAdminSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField()
+
+    class Meta:
+        model = Temporary
+        fields = ['user', 'id', 'day', 'shift_type', 'custom_time', 'night']
 
 
 class TemporarySerializer(serializers.ModelSerializer):
