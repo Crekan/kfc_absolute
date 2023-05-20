@@ -3,14 +3,16 @@ from datetime import datetime, timedelta
 from django.shortcuts import redirect
 from rest_framework import generics, permissions
 
+from users.models import User
 from .models import Temporary
 from .serializers import TemporaryCreateSerializer, TemporarySerializer, TemporaryAdminSerializer
 from .tasks import delete_record
+from users.serializers import CustomUserAdminSerializer
 
 
 class AdminView(generics.ListAPIView):
-    queryset = Temporary.objects.all()
-    serializer_class = TemporaryAdminSerializer
+    queryset = User.objects.all()
+    serializer_class = CustomUserAdminSerializer
     permission_classes = (permissions.IsAdminUser,)
 
 
