@@ -7,4 +7,5 @@ urlpatterns = [
     path('api/v1/', include('users.urls')),
     path('api/v1/', include('temporary.urls')),
     path('api/v1/', include('feedback.urls')),
+    path('api/v1/', include('vakantie.urls')),
 ]

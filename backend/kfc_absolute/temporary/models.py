@@ -32,3 +32,7 @@ class Temporary(models.Model):
 
     def __str__(self):
         return f'{self.day} - {self.shift_type}'
+
+    class Meta:
+        verbose_name = 'Временные'
+        verbose_name_plural = 'Временные'

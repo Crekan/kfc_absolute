@@ -1,3 +1,16 @@
-from django.shortcuts import render
+from rest_framework import generics, permissions
 
-# Create your views here.
+from .models import Vakantie
+from .serializers import VakantieSerializer, VakantieCreateSerializer
+
+
+class VakantieView(generics.ListAPIView):
+    queryset = Vakantie.objects.all()
+    serializer_class = VakantieSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+
+class VakantieCreateView(generics.CreateAPIView):
+    queryset = Vakantie.objects.all()
+    serializer_class = VakantieCreateSerializer
+    permission_classes = (permissions.IsAuthenticated,)

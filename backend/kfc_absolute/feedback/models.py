@@ -24,3 +24,7 @@ class Feedback(models.Model):
 
     def __str__(self):
         return f'{self.address} - {self.team}'
+
+    class Meta:
+        verbose_name = 'Заявка на отпуск'
+        verbose_name_plural = 'Заявка на отпуски'
