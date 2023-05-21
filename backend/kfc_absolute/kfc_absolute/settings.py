@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'celery',
     'django_celery_results',
+    'corsheaders',
 
     'users.apps.UsersConfig',
     'temporary.apps.TemporaryConfig',
@@ -45,6 +46,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'kfc_absolute.urls'
@@ -153,6 +155,19 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': timedelta(days=7),
     },
 }
+
+# Cors headers
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+]
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
 
 # User
 

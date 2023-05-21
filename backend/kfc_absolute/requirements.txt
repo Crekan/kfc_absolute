@@ -1,8 +1,13 @@
 celery==5.2.7
 Django==4.2.1
+django-celery-results==2.5.1
+django-cors-headers==4.0.0
 django-environ==0.10.0
 django-filter==23.2
 djangorestframework==3.14.0
 environ==1.0
+flake8==6.0.0
+flake8-django==1.2
+isort==5.12.0
 psycopg2==2.9.6
 redis==4.5.5
