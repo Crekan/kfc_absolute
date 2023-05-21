@@ -9,10 +9,10 @@ class Vakantie(models.Model):
 
     vakantie = models.CharField(max_length=150, choices=TYPE_VERLOF_CHOICES)
     start_vacation = models.DateField()
-    end_vacation = models.DateField(blank=True)
+    end_vacation = models.DateField(blank=True, null=True)
 
     def __str__(self):
-        return f'Пользователь: {self.user.full_name} взял {self.vakantie} с {self.start_vacation}'
+        return f'{self.vakantie} с {self.start_vacation}'
 
     class Meta:
         verbose_name = 'Заявка на отпуск'

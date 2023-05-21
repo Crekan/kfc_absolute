@@ -25,8 +25,9 @@ class VakantieCreateSerializer(serializers.ModelSerializer):
         return value
 
     def to_representation(self, instance):
-        shift_choices = Vakantie.TYPE_VERLOF_CHOICES
+        vakantie_choices = Vakantie.TYPE_VERLOF_CHOICES
 
-        if instance.shift_choices in [choice[0] for choice in shift_choices if choice[0] != 'Социальный(за свой счет)']:
+        if instance.vakantie in [choice[0] for choice in vakantie_choices if
+                                 choice[0] != 'Социальный(за свой счет)']:
             self.fields['end_vacation'].read_only = True
         return super().to_representation(instance)
