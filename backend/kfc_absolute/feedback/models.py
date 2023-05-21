@@ -26,5 +26,5 @@ class Feedback(models.Model):
         return f'{self.address} - {self.team}'
 
     class Meta:
-        verbose_name = 'Заявка на отпуск'
-        verbose_name_plural = 'Заявка на отпуски'
+        verbose_name = 'Обрантая связь'
+        verbose_name_plural = 'Обрантая связь'
