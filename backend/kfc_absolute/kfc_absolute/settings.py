@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'temporary.apps.TemporaryConfig',
     'feedback.apps.FeedbackConfig',
+    'vakantie.apps.VakantieConfig',
 ]
 
 MIDDLEWARE = [
@@ -136,7 +137,6 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        # 'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ]
 }
