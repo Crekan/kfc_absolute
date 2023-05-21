@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'temporary.apps.TemporaryConfig',
     'feedback.apps.FeedbackConfig',
     'vakantie.apps.VakantieConfig',
+    'timing_adjustment.apps.TimingAdjustmentConfig',
 ]
 
 MIDDLEWARE = [

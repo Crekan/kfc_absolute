@@ -1,7 +1,7 @@
 from rest_framework import generics, permissions
 
 from .models import Vakantie
-from .serializers import VakantieSerializer, VakantieCreateSerializer
+from .serializers import VakantieCreateSerializer, VakantieSerializer
 
 
 class VakantieView(generics.ListAPIView):

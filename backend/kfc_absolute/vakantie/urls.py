@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import VakantieView, VakantieCreateView
+from .views import VakantieCreateView, VakantieView
 
 urlpatterns = [
     path('vakantie/', VakantieView.as_view(), name='vakantie_view'),
