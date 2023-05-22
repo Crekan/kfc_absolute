@@ -9,7 +9,6 @@ from rest_framework import generics, permissions
 
 from users.models import User
 from users.serializers import CustomUserAdminSerializer
-
 from .mixins import UserFilterMixin
 from .serializers import TemporaryCreateSerializer, TemporarySerializer
 from .tasks import delete_record
@@ -63,14 +62,12 @@ class ExportTemporaryDataView(generics.GenericAPIView):
                 col_index = headers.index(day) + 1
                 worksheet.cell(row=row, column=col_index, value=shift_type)
 
-                # Set "Смогу" if night is True
                 if temp_data.get('night', False):
                     night_col_index = headers.index(day) + 8  # Get the corresponding "Ночные смены" column index
                     worksheet.cell(row=row, column=night_col_index, value='Смогу')
 
             row += 1
 
-        # Auto-fit column widths
         for column_cells in worksheet.columns:
             max_length = 0
             column = get_column_letter(column_cells[0].column)
@@ -94,15 +91,6 @@ class TemporaryView(UserFilterMixin, generics.ListAPIView):
 
     serializer_class = TemporarySerializer
     permission_classes = (permissions.IsAuthenticated,)
-
-
-# class TemporaryDetailView(UserFilterMixin, generics.RetrieveUpdateDestroyAPIView):
-#     """
-#     Detailed temporal
-#     """
-
-#     serializer_class = TemporaryCreateSerializer
-#     permission_classes = (permissions.IsAuthenticated,)
 
 
 class TemporaryCreateView(UserFilterMixin, generics.CreateAPIView):
