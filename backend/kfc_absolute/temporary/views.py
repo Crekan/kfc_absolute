@@ -12,22 +12,38 @@ from .tasks import delete_record
 
 
 class AdminView(generics.ListAPIView):
+    """
+    Temporary administrator preview
+    """
+
     queryset = User.objects.all()
     serializer_class = CustomUserAdminSerializer
     permission_classes = (permissions.IsAdminUser,)
 
 
 class TemporaryView(UserFilterMixin, generics.ListAPIView):
+    """
+    Viewing temporary
+    """
+
     serializer_class = TemporarySerializer
     permission_classes = (permissions.IsAuthenticated,)
 
 
-class TemporaryDetailView(UserFilterMixin, generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = TemporaryCreateSerializer
-    permission_classes = (permissions.IsAuthenticated,)
+# class TemporaryDetailView(UserFilterMixin, generics.RetrieveUpdateDestroyAPIView):
+#     """
+#     Detailed temporal
+#     """
+
+#     serializer_class = TemporaryCreateSerializer
+#     permission_classes = (permissions.IsAuthenticated,)
 
 
 class TemporaryCreateView(UserFilterMixin, generics.CreateAPIView):
+    """
+    Creating temporary
+    """
+
     serializer_class = TemporaryCreateSerializer
     permission_classes = (permissions.IsAuthenticated,)
 

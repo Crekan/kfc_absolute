@@ -5,6 +5,10 @@ from .serializers import CustomUserSerializer
 
 
 class RegisterView(generics.CreateAPIView):
+    """
+    User registration
+    """
+
     queryset = User.objects.all()
     serializer_class = CustomUserSerializer
     permission_classes = [permissions.AllowAny]

@@ -9,23 +9,39 @@ from .serializers import (AdjustmentWorkingHoursCreateSerializers,
 
 
 class ShiftManagerView(generics.ListAPIView):
+    """
+    Viewing managers
+    """
+
     queryset = ShiftManager.objects.all()
     serializer_class = ShiftManagerSerializer
     permission_classes = (permissions.IsAdminUser,)
 
 
 class ShiftManagerCreateView(generics.CreateAPIView):
+    """
+    Adding managers
+    """
+
     queryset = ShiftManager.objects.all()
     serializer_class = ShiftManagerCreateSerializer
     permission_classes = (permissions.IsAdminUser,)
 
 
 class AdjustmentWorkingHoursView(AdjustmentWorkingHoursFilterMixin, generics.ListAPIView):
+    """
+    Viewing time adjustments
+    """
+
     serializer_class = AdjustmentWorkingHoursSerializers
     permission_classes = (permissions.IsAuthenticated,)
 
 
 class AdjustmentWorkingHoursCreateView(AdjustmentWorkingHoursFilterMixin, generics.CreateAPIView):
+    """
+    Adding time adjustments
+    """
+
     serializer_class = AdjustmentWorkingHoursCreateSerializers
     permission_classes = (permissions.IsAuthenticated,)
 

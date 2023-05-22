@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'celery',
     'django_celery_results',
     'corsheaders',
+    'drf_yasg',
 
     'users.apps.UsersConfig',
     'temporary.apps.TemporaryConfig',

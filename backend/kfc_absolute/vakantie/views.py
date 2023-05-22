@@ -1,17 +1,24 @@
 from django.shortcuts import redirect
 from rest_framework import generics, permissions
-from .mixins import VakantieFilterMixin
 
-from .models import Vakantie
+from .mixins import VakantieFilterMixin
 from .serializers import VakantieCreateSerializer, VakantieSerializer
 
 
 class VakantieView(VakantieFilterMixin, generics.ListAPIView):
+    """
+    Vacation viewing
+    """
+
     serializer_class = VakantieSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
 
 class VakantieCreateView(VakantieFilterMixin, generics.CreateAPIView):
+    """
+    vacation addition
+    """
+
     serializer_class = VakantieCreateSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
