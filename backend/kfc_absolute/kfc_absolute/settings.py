@@ -26,17 +26,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'rest_framework',
-    'celery',
     'django_celery_results',
+    'rest_framework',
+    'debug_toolbar',
     'corsheaders',
     'drf_yasg',
+    'celery',
 
-    'users.apps.UsersConfig',
+    'timing_adjustment.apps.TimingAdjustmentConfig',
     'temporary.apps.TemporaryConfig',
     'feedback.apps.FeedbackConfig',
     'vakantie.apps.VakantieConfig',
-    'timing_adjustment.apps.TimingAdjustmentConfig',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
@@ -47,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'corsheaders.middleware.CorsMiddleware',
 ]
 
