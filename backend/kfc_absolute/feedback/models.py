@@ -20,7 +20,7 @@ class Feedback(models.Model):
     address = models.CharField(max_length=150, choices=TYPE_TREATMENT_CHOICES)
     team = models.CharField(max_length=255, choices=FOR_WHOM_CHOICES)
     situation = models.TextField()
-    other = models.TextField()
+    other = models.TextField(blank=True)
 
     def __str__(self):
         return f'{self.address} - {self.team}'

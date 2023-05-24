@@ -27,6 +27,6 @@ class FeedbackCreateSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         for_whom_choices = Feedback.TYPE_TREATMENT_CHOICES
 
-        if instance.shift_type in [choice[0] for choice in for_whom_choices if choice[0] != 'Другое']:
+        if instance.team in [choice[0] for choice in for_whom_choices if choice[0] != 'Другое']:
             self.fields['other'].read_only = True
         return super().to_representation(instance)

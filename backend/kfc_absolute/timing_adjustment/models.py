@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import User
+
 
 class ShiftManager(models.Model):
     full_name = models.CharField(max_length=150)
@@ -25,6 +27,7 @@ class AdjustmentWorkingHours(models.Model):
     end_time = models.TimeField()
     launch = models.CharField(max_length=150, choices=LUNCH_CHOICES)
     manager = models.ForeignKey(ShiftManager, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def formatted_start_time(self):
         return self.start_time.strftime('%H:%M')
