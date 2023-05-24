@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from temporary.models import Temporary
+from temporary.serializers import TemporarySerializer
 
 from .models import User
 
@@ -17,7 +18,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
 
 class CustomUserAdminSerializer(serializers.ModelSerializer):
-    temporary = serializers.SerializerMethodField()
+    temporary = TemporarySerializer(many=True, read_only=True, source='temporary_set')
 
     class Meta:
         model = User

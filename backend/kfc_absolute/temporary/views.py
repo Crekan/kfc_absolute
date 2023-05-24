@@ -20,7 +20,7 @@ class AdminView(generics.ListAPIView):
     Temporary administrator preview
     """
 
-    queryset = User.objects.all()
+    queryset = User.objects.prefetch_related('temporary_set').all()
     serializer_class = CustomUserAdminSerializer
     permission_classes = (permissions.IsAdminUser,)
 
